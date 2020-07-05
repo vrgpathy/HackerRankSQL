@@ -1,0 +1,1 @@
+select m.id,m.age,m.coins_needed,m.power from (select w.id,wp.age,w.coins_needed,w.power,dense_rank() over (partition by w.power,wp.age order by w.power desc,wp.age desc,w.coins_needed) rn  from wands w,wands_property wp where wp.is_evil = 0 and w.code = wp.code order by w.power desc, wp.age desc) m where rn = 1;
